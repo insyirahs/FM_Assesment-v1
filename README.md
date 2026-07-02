@@ -97,7 +97,8 @@ Verify with: `tesseract --version`
 
 run 
 ```bash
-source venv/bin/activate #(for each) after every "cd"
+source venv/bin/activate
+#(for each) after every "cd"
 
 Install the Python dependencies:
 ```bash
