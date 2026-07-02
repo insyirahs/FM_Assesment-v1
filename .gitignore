@@ -1,0 +1,21 @@
+# Virtual environments (large - never commit)
+venv/
+*/venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Model weights / large binaries (optional - uncomment if too big for GitHub)
+# *.pt
+
+# Editor
+.vscode/
+.idea/
