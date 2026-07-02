@@ -115,6 +115,7 @@ python google_places_scraper.py
 - Output is written to `store_locations.csv`.
 - **Note:** replace the API key in `google_places_scraper.py` with your own
   Google Places API key before running it.
+- Install : python3 -m pip install pandas requests
 
 
 Task 2 — Vehicle Counting
@@ -124,6 +125,7 @@ python main.py
 ```
 - Reads `video.mp4`, writes the annotated `output.mp4`, and prints the final
   count per vehicle type. Press **q** to stop early.
+- Install : python3 -m pip install ultralytics opencv-python
 
 Task 3 — Deposit Amount OCR
 ```bash
@@ -132,13 +134,15 @@ python ocr_deposit_extraction.py      # extract from images.jpeg
 python test_run.py                    # run against all test images
 python vnv_accuracy.py                # compare results to expected values
 ```
-
+- Install : python3 -m pip install easyocr pytesseract opencv-python
+  
 Task 4 — Sales Forecasting
 ```bash
 cd "sale_forecasting/demand-forecasting-kernels-only"
 python forecast.py
 ```
 - Prints MAE / RMSE / MAPE and shows the actual-vs-forecast plot.
+- Install : python3 -m pip install pandas numpy statsmodels scikit-learn matplotlib
 
 ---
 
