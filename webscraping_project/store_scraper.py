@@ -1,3 +1,6 @@
+import requests
+import pandas as pd
+
 def get_places(query, brand):
     url = "https://overpass.kumi.systems/api/interpreter"
 
