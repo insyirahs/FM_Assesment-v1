@@ -87,6 +87,14 @@ Prerequisites
   brew install tesseract
   ```
 
+- macOS:   `brew install tesseract`
+- Ubuntu/Debian:   `sudo apt install tesseract-ocr`
+- Windows   Download from https://github.com/UB-Mannheim/tesseract/wiki
+  and add it to your PATH (or set `pytesseract.pytesseract.tesseract_cmd`
+  to the tesseract.exe path in the script).
+
+Verify with: `tesseract --version`
+
 Install the Python dependencies:
 ```bash
 pip install ultralytics opencv-python easyocr pytesseract \
