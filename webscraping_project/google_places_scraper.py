@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import time
 
-API_KEY = "AIzaSyDMpmSP7xu6H-9Ih5K6kXkpnGp63dsnotc"
+API_KEY = "YOUR_GOOGLE_PLACES_API_KEY"
 
 brands = [
     "99 Speedmart Malaysia",
