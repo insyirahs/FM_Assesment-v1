@@ -161,7 +161,93 @@ python demand-forecasting-kernels-only/forecast.py #for cd sale_forecasting
 ```
 - Prints MAE / RMSE / MAPE and shows the actual-vs-forecast plot.
 - Install : python3 -m pip install pandas numpy statsmodels scikit-learn matplotlib
+  
+Question 5 — Making the Inventory AI Agent Safe and Reliable
 
+The Problem
+
+A store chain built an AI agent to manage stock for 500 stores. The agent looks
+at sales, checks the warehouse, and creates purchase orders on its own.
+
+But during testing it made big mistakes:
+1. It **made up fake sales numbers**.
+2. It **ignored the warehouse limits** (ordered more than there was space for).
+3. It once tried to order **10,000 units of a product that was being stopped**.
+
+Why This Happened
+
+The AI was given too much freedom. It was allowed to both *think* and *act* by
+itself, and it trusted its own memory instead of real data.
+
+**My main idea:** Don't let the AI make the final decision. Let the AI only
+*suggest* an order. Then let normal, rule-based code *check it and decide*
+whether to actually do it. In short: **the AI suggests, the code approves.**
+
+I fix this in three parts: **Prompt, Context, and Harness Engineering.*
+
+1. Prompt Engineering — Telling the AI How to Behave
+
+This is about giving the AI clear instructions.
+
+- Give it **strict rules** in its instructions, like:
+  - "Only order products that are still active."
+  - "Never order more than the warehouse can hold."
+  - "If you don't have the data, say 'NO DATA' — never guess."
+- Make it answer in a **fixed format** (like a form with product, quantity, and
+  reason) so the computer can easily check its answer.
+- Make it **explain its reason** before giving an order, so we can see its
+  thinking.
+- Show it **examples** of good and bad orders so it learns what is right.
+
+---
+
+2. Context Engineering — Giving the AI Real Information
+
+- Instead of letting the AI remember numbers, we **feed it real, live data**
+  from the actual database (real sales, real stock, real product status). The AI
+  can only use the real facts we give it.
+- Give the AI **tools to look things up**, like `get_sales()`, `check_stock()`,
+  and `get_product_status()`. It must use these tools to get real data instead
+  of making it up.
+- Only give it **one store's data at a time**, not all 500 at once. This keeps
+  it simple and avoids confusion.
+
+---
+
+3. Harness Engineering — Building Safety Checks Around the AI
+
+*(This stops the bad orders, like the 10,000 discontinued units.)*
+
+This is the most important part. Before **any** order is actually made, it goes
+through a set of **safety checks written in normal code** (not the AI):
+
+- **Rule checks:**
+  - Block orders for products that are being stopped *(this would have caught
+    the 10,000-unit mistake)*.
+  - Block orders bigger than the warehouse can hold.
+  - Set minimum and maximum order sizes.
+- **Strange-order check:** If an order is much bigger than usual (like 3x
+  normal), flag it for a human to look at.
+- **Human approval:** For big or risky orders, a real person must approve it
+  before it happens.
+- **Low confidence = stop:** If the AI is unsure or missing data, don't order —
+  send it to a human instead.
+- **Keep records:** Save every decision and reason, so we can check later if
+  something goes wrong.
+- **When unsure, do nothing:** No order is safer than a wrong order.
+
+---
+
+How It All Works Together
+Real data (from database + tools)
+↓
+AI suggests an order (with its reason)
+↓
+Safety checks in code (rules + strange-order check)
+↓
+Human approves risky orders
+↓
+Order is made → Everything is saved in a log
 ---
 
 Repository Structure
