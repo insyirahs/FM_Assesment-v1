@@ -81,7 +81,7 @@ Language: Python 3
 
 Prerequisites
 - Python 3.9+
-- (Task 2 only) the Tesseract OCR engine installed on your system:
+- (Task 3 only) the Tesseract OCR engine installed on your system:
   ```bash
   # macOS
   brew install tesseract
@@ -95,16 +95,24 @@ Prerequisites
 
 Verify with: `tesseract --version`
 
+run 
+```bash
+source venv/bin/activate #(for each) after every "cd"
+
 Install the Python dependencies:
 ```bash
 pip install ultralytics opencv-python easyocr pytesseract \
             pandas numpy statsmodels scikit-learn matplotlib requests
+#depends on the task
 ```
-run source venv/bin/activate (for each) after every "cd"
+
 
 Task 1 — Web Scraping
 ```bash
 cd webscraping_project
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install pandas requests
 
 # Free, no key required (OpenStreetMap):
 python store_scraper.py
@@ -121,6 +129,9 @@ python google_places_scraper.py
 Task 2 — Vehicle Counting
 ```bash
 cd car_counter
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install ultralytics opencv-python
 python main.py
 ```
 - Reads `video.mp4`, writes the annotated `output.mp4`, and prints the final
@@ -130,6 +141,9 @@ python main.py
 Task 3 — Deposit Amount OCR
 ```bash
 cd "ocr_deposit_extraction"
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install easyocr pytesseract opencv-python
 python ocr_deposit_extraction.py      # extract from images.jpeg
 python test_run.py                    # run against all test images
 python vnv_accuracy.py                # compare results to expected values
@@ -138,8 +152,11 @@ python vnv_accuracy.py                # compare results to expected values
   
 Task 4 — Sales Forecasting
 ```bash
-cd "sale_forecasting/demand-forecasting-kernels-only"
-python forecast.py
+cd "sale_forecasting/demand-forecasting-kernels-only" 
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install pandas numpy statsmodels scikit-learn matplotlib
+python demand-forecasting-kernels-only/forecast.py #for cd sale_forecasting
 ```
 - Prints MAE / RMSE / MAPE and shows the actual-vs-forecast plot.
 - Install : python3 -m pip install pandas numpy statsmodels scikit-learn matplotlib
